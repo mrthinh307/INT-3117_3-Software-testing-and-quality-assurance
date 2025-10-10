@@ -1,0 +1,145 @@
+===================================================================================
+BÁO CÁO KIỂM THỬ C2 (BRANCH COVERAGE) - CALCULATETOTALPRICE FUNCTION
+===================================================================================
+Ngày thực hiện: October 10, 2025
+Công cụ: Jest v29.7.0 với Istanbul Code Coverage
+Mục tiêu: Đạt 100% Branch Coverage (C2) cho hàm calculateTotalPrice
+
+===================================================================================
+KẾT QUẢ KIỂM THỬ
+===================================================================================
+
+✓ Tổng số test cases: 14
+✓ Test cases passed: 14
+✓ Test cases failed: 0
+✓ Thời gian thực thi: ~0.641s
+
+===================================================================================
+ĐỘ PHỦ CODE COVERAGE (C2 - BRANCH COVERAGE)
+===================================================================================
+
+Metric          | Coverage | Passed/Total
+----------------|----------|-------------
+Statements      | 100%     | 12/12
+Branches        | 100%     | 8/8        ← ĐẠT YÊU CẦU C2
+Functions       | 100%     | 1/1
+Lines           | 100%     | 12/12
+
+===================================================================================
+PHÂN TÍCH CÁC ĐIỂM QUYẾT ĐỊNH (DECISION POINTS)
+===================================================================================
+
+[ĐIỂM QUYẾT ĐỊNH 1] - Kiểm tra Input hợp lệ
+-----------------------------------------------------------
+Điều kiện: unitPrice <= 0 || quantity <= 0
+Mô tả: Kiểm tra input hợp lệ
+
+Nhánh TRUE (T): Input không hợp lệ → return error
+  ✓ Test case 1: unitPrice = 0, quantity = 10
+  ✓ Test case 2: unitPrice = 100, quantity = 0  
+  ✓ Test case 3: unitPrice = -10, quantity = -5
+
+Nhánh FALSE (F): Input hợp lệ → tiếp tục xử lý
+  ✓ Test case 4: unitPrice = 100, quantity = 3
+
+
+[ĐIỂM QUYẾT ĐỊNH 2] - Kiểm tra giảm giá 20%
+-----------------------------------------------------------
+Điều kiện: quantity >= 10
+Mô tả: Kiểm tra điều kiện giảm giá 20%
+
+Nhánh TRUE (T): quantity >= 10 → áp dụng 20% discount
+  ✓ Test case 5: quantity = 10 (biên giới)
+  ✓ Test case 6: quantity = 15
+
+Nhánh FALSE (F): quantity < 10 → không áp dụng 20% discount
+  ✓ Test case 7: quantity = 9
+
+
+[ĐIỂM QUYẾT ĐỊNH 3] - Kiểm tra giảm giá 10%
+-----------------------------------------------------------
+Điều kiện: quantity >= 5
+Mô tả: Kiểm tra điều kiện giảm giá 10%
+
+Nhánh TRUE (T): quantity >= 5 (và < 10) → áp dụng 10% discount
+  ✓ Test case 8: quantity = 5 (biên giới)
+  ✓ Test case 9: quantity = 7
+
+Nhánh FALSE (F): quantity < 5 → không có discount
+  ✓ Test case 10: quantity = 4
+  ✓ Test case 11: quantity = 1
+
+===================================================================================
+TẤT CẢ CÁC ĐƯỜNG ĐI (PATHS) ĐƯỢC KIỂM THỬ
+===================================================================================
+
+Path 1: Input không hợp lệ
+  (1) → [TRUE] → return FALSE
+
+Path 2: Giảm giá 20%
+  (1) → [FALSE] → (2) → [TRUE] → calculate → return
+
+Path 3: Giảm giá 10%
+  (1) → [FALSE] → (2) → [FALSE] → (3) → [TRUE] → calculate → return
+
+Path 4: Không giảm giá
+  (1) → [FALSE] → (2) → [FALSE] → (3) → [FALSE] → calculate → return
+
+===================================================================================
+EDGE CASES & SPECIAL TESTS
+===================================================================================
+
+✓ Biên giới giảm giá 10%: quantity = 5 → 10% discount (PASS)
+✓ Biên giới giảm giá 20%: quantity = 10 → 20% discount (PASS)
+✓ Số thập phân với unitPrice: 19.99 → xử lý đúng (PASS)
+✓ Cả hai giá trị âm: unitPrice = -10, quantity = -5 → error (PASS)
+
+===================================================================================
+KẾT LUẬN
+===================================================================================
+
+✓ ĐẠT YÊU CẦU: 100% Branch Coverage (C2)
+✓ Tất cả 8 nhánh của 3 điểm quyết định đã được kiểm thử
+✓ Không có nhánh nào bị bỏ sót
+✓ Các trường hợp biên (edge cases) đã được test kỹ lưỡng
+✓ Code hoạt động đúng với tất cả các đường đi logic
+
+===================================================================================
+CHI TIẾT BÁO CÁO HTML
+===================================================================================
+
+Báo cáo HTML chi tiết được tạo tại:
+📁 coverage/index.html
+
+Mở file này trong trình duyệt để xem:
+- Màu sắc highlight các dòng code đã được test
+- Chi tiết từng branch đã được cover
+- Biểu đồ trực quan về coverage
+
+===================================================================================
+CÁC FILE ĐƯỢC TẠO
+===================================================================================
+
+📄 package.json          - Cấu hình project và Jest
+📄 index.test.js         - File chứa 14 test cases
+📁 coverage/             - Thư mục chứa báo cáo coverage
+   ├── index.html        - Báo cáo HTML (interactive)
+   ├── lcov-report/      - Báo cáo LCOV format
+   └── coverage-final.json
+
+===================================================================================
+HƯỚNG DẪN SỬ DỤNG
+===================================================================================
+
+Chạy test thông thường:
+  npm test
+
+Chạy test với coverage report:
+  npm run test:coverage
+
+Chạy test trong watch mode (auto re-run khi có thay đổi):
+  npm run test:watch
+
+===================================================================================
+KẾT THÚC BÁO CÁO
+===================================================================================
