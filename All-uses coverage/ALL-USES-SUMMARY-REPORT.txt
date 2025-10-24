@@ -1,0 +1,284 @@
+================================================================================
+        ALL-USES COVERAGE TESTING - SUMMARY REPORT
+        calculateTotalPrice Function Test Results
+================================================================================
+
+📅 Ngày tạo: October 24, 2025
+📂 Project: INT-3117_3 - Software Testing and Quality Assurance
+🎯 Coverage Type: All-Uses Coverage (Data Flow Testing)
+
+================================================================================
+                           TEST EXECUTION RESULTS
+================================================================================
+
+✅ Test Suite Status: PASSED
+📊 Total Test Cases: 24
+✔️  Passed: 24
+❌ Failed: 0
+⏱️  Execution Time: ~0.6s
+
+================================================================================
+                        ALL-USES COVERAGE ANALYSIS
+================================================================================
+
+🎯 Coverage Goal: Test all def-use pairs (definition-use pairs)
+
+Total Variables Analyzed: 4
+  1. unitPrice (parameter)
+  2. quantity (parameter)
+  3. discount (object)
+  4. totalPrice (computed value)
+
+Total Def-Use Pairs Identified: 14 pairs
+Total Def-Use Pairs Tested: 14 pairs
+All-Uses Coverage: 100%
+
+================================================================================
+                      DETAILED DEF-USE PAIRS COVERAGE
+================================================================================
+
+1. VARIABLE: unitPrice
+   ─────────────────────────────────────────────────────────────────────
+   Def Location: Function parameter (line 1)
+   Use Locations:
+     - Line: validation check (unitPrice <= 0) - p-use ✅
+     - Line: calculation (unitPrice * quantity) - c-use ✅
+   
+   Test Coverage:
+     ✅ DU1: def → invalid validation (unitPrice = -50)
+     ✅ DU2: def → valid validation → calculation (unitPrice = 100, qty = 3)
+     ✅ DU3: def → calculation with 10% discount (unitPrice = 200, qty = 7)
+     ✅ DU4: def → calculation with 20% discount (unitPrice = 150, qty = 12)
+
+2. VARIABLE: quantity
+   ─────────────────────────────────────────────────────────────────────
+   Def Location: Function parameter (line 1)
+   Use Locations:
+     - Line: validation check (quantity <= 0) - p-use ✅
+     - Line: discount check (quantity >= 10) - p-use ✅
+     - Line: discount check (quantity >= 5) - p-use ✅
+     - Line: calculation (unitPrice * quantity) - c-use ✅
+   
+   Test Coverage:
+     ✅ DU5: def → invalid validation (quantity = 0)
+     ✅ DU6: def → valid → no discount → calculation (quantity = 3)
+     ✅ DU7: def → valid → 10% discount → calculation (quantity = 5)
+     ✅ DU8: def → valid → 20% discount → calculation (quantity = 10)
+     ✅ DU9: def → edge case (quantity = 9)
+
+3. VARIABLE: discount
+   ─────────────────────────────────────────────────────────────────────
+   Def Locations:
+     - Line: discount = NO_DISCOUNT
+     - Line: discount = TEN_PERCENT
+     - Line: discount = TWENTY_PERCENT
+   
+   Use Locations:
+     - Line: calculation (1 - discount.rate) - c-use ✅
+     - Line: return (discount.message) - c-use ✅
+   
+   Test Coverage:
+     ✅ DU10: NO_DISCOUNT → calculation → return (quantity = 2)
+     ✅ DU11: TEN_PERCENT → calculation → return (quantity = 6)
+     ✅ DU12: TWENTY_PERCENT → calculation → return (quantity = 15)
+
+4. VARIABLE: totalPrice
+   ─────────────────────────────────────────────────────────────────────
+   Def Location: Line: const totalPrice = calculation
+   Use Locations:
+     - Line: return { totalPrice } - c-use ✅
+   
+   Test Coverage:
+     ✅ DU13: def (calculation) → use (return) - normal case
+     ✅ DU14: def (calculation) → use (return) - decimal case
+
+================================================================================
+                         TEST CASES BREAKDOWN
+================================================================================
+
+Group 1: Def-Use Pairs cho biến unitPrice (4 tests)
+────────────────────────────────────────────────────────────────
+  ✅ DU1: unitPrice def (parameter) -> use (validation check, invalid)
+  ✅ DU2: unitPrice def (parameter) -> use (validation check, valid) -> use (calculation)
+  ✅ DU3: unitPrice def (parameter) -> use (calculation with 10% discount)
+  ✅ DU4: unitPrice def (parameter) -> use (calculation with 20% discount)
+
+Group 2: Def-Use Pairs cho biến quantity (5 tests)
+────────────────────────────────────────────────────────────────
+  ✅ DU5: quantity def (parameter) -> use (validation check, invalid)
+  ✅ DU6: quantity def (parameter) -> use (validation) -> use (no discount check) -> use (calculation)
+  ✅ DU7: quantity def (parameter) -> use (validation) -> use (10% discount check) -> use (calculation)
+  ✅ DU8: quantity def (parameter) -> use (validation) -> use (20% discount check) -> use (calculation)
+  ✅ DU9: quantity def (parameter) -> use (edge case quantity = 9)
+
+Group 3: Def-Use Pairs cho biến discount (3 tests)
+────────────────────────────────────────────────────────────────
+  ✅ DU10: discount def (NO_DISCOUNT) -> use (calculation) -> use (message return)
+  ✅ DU11: discount def (TEN_PERCENT) -> use (calculation) -> use (message return)
+  ✅ DU12: discount def (TWENTY_PERCENT) -> use (calculation) -> use (message return)
+
+Group 4: Def-Use Pairs cho biến totalPrice (2 tests)
+────────────────────────────────────────────────────────────────
+  ✅ DU13: totalPrice def (calculation) -> use (return object)
+  ✅ DU14: totalPrice def (calculation with decimal) -> use (return)
+
+Group 5: Test cases kết hợp - Đảm bảo tất cả def-use paths (8 tests)
+────────────────────────────────────────────────────────────────
+  ✅ DU15: Path coverage - Invalid unitPrice với quantity hợp lệ
+  ✅ DU16: Path coverage - unitPrice hợp lệ với invalid quantity
+  ✅ DU17: Path coverage - Cả hai invalid
+  ✅ DU18: Path coverage - Boundary value quantity = 4 (max no discount)
+  ✅ DU19: Path coverage - Boundary value quantity = 5 (min 10% discount)
+  ✅ DU20: Path coverage - Boundary value quantity = 10 (min 20% discount)
+  ✅ DU21: Path coverage - Large values
+  ✅ DU22: Path coverage - Small decimal values
+
+Group 6: Kiểm tra tính toàn vẹn của return object (2 tests)
+────────────────────────────────────────────────────────────────
+  ✅ DU23: Return object structure - all properties present
+  ✅ DU24: Return object structure - error case
+
+================================================================================
+                           DATA FLOW PATHS TESTED
+================================================================================
+
+Path 1: Invalid Input Path
+  unitPrice/quantity → validation (TRUE) → return error
+  Tests: DU1, DU5, DU15, DU16, DU17
+
+Path 2: No Discount Path
+  unitPrice/quantity → validation (FALSE) → discount = NO_DISCOUNT → 
+  calculation → return
+  Tests: DU2, DU6, DU10, DU18
+
+Path 3: 10% Discount Path
+  unitPrice/quantity → validation (FALSE) → quantity >= 5 (TRUE) → 
+  discount = TEN_PERCENT → calculation → return
+  Tests: DU3, DU7, DU11, DU19, DU22
+
+Path 4: 20% Discount Path
+  unitPrice/quantity → validation (FALSE) → quantity >= 10 (TRUE) → 
+  discount = TWENTY_PERCENT → calculation → return
+  Tests: DU4, DU8, DU12, DU20, DU21
+
+Path 5: Edge Cases
+  Tests: DU9 (quantity = 9, boundary between 10% and no future discount)
+
+================================================================================
+                        COMPARISON WITH OTHER COVERAGE
+================================================================================
+
+| Coverage Type  | File                    | Test Cases | Coverage |
+|----------------|-------------------------|------------|----------|
+| C2 Branch      | index.test.js           | 14         | 100%     |
+| All-Uses       | index.all-uses.test.js  | 24         | 100%     |
+
+All-Uses Coverage Benefits:
+  ✅ Detects data flow errors
+  ✅ Finds uninitialized variables
+  ✅ Identifies unused variables
+  ✅ Ensures data consistency
+  ✅ More comprehensive than branch coverage
+
+All-Uses vs C2:
+  • All-Uses tests variable usage patterns
+  • C2 tests decision branches
+  • All-Uses requires more test cases (24 vs 14)
+  • All-Uses provides deeper data flow analysis
+
+================================================================================
+                           QUALITY METRICS
+================================================================================
+
+Code Quality Indicators:
+  ✅ No undefined variables detected
+  ✅ All variables properly initialized before use
+  ✅ All computed values properly returned
+  ✅ Data flow consistency maintained
+  ✅ All def-use chains covered
+
+Test Quality Indicators:
+  ✅ All def-use pairs tested
+  ✅ All data flow paths covered
+  ✅ Edge cases included
+  ✅ Boundary values tested
+  ✅ Error handling verified
+
+================================================================================
+                         RECOMMENDATIONS
+================================================================================
+
+✅ STRENGTHS:
+  • Complete def-use pair coverage achieved
+  • All data flow paths thoroughly tested
+  • Comprehensive edge case testing
+  • Well-structured test organization
+  • Clear test case naming convention
+
+💡 BEST PRACTICES FOLLOWED:
+  • Systematic def-use pair analysis
+  • Clear separation of test groups
+  • Detailed test case documentation
+  • Comprehensive boundary value testing
+  • Return object structure validation
+
+================================================================================
+                         CONCLUSION
+================================================================================
+
+The calculateTotalPrice function has achieved 100% All-Uses Coverage with 
+24 comprehensive test cases covering all def-use pairs across 4 variables.
+
+Key Achievements:
+  ✅ 14/14 def-use pairs tested (100%)
+  ✅ 24/24 test cases passed (100%)
+  ✅ All data flow paths covered
+  ✅ Zero data flow anomalies detected
+  ✅ Complete variable lifecycle testing
+
+The function demonstrates:
+  • Proper variable initialization
+  • Consistent data flow
+  • Correct variable usage
+  • Reliable error handling
+  • Predictable return values
+
+Status: ✅ PRODUCTION READY - All data flow requirements satisfied
+
+================================================================================
+                         GENERATED FILES
+================================================================================
+
+Test Files:
+  📄 index.all-uses.test.js - All-Uses test cases implementation
+
+Documentation:
+  📄 ALL-USES-README.md - Detailed all-uses coverage documentation
+  📄 all-uses-coverage-report.txt - Raw test execution output
+
+Coverage Reports:
+  📄 coverage/index.html - HTML coverage report (visual)
+  📄 coverage/lcov-report/ - LCOV format reports
+
+================================================================================
+                         REFERENCE INFORMATION
+================================================================================
+
+Testing Framework: Jest 29.7.0
+Coverage Tool: Istanbul (built-in Jest)
+Test Execution Date: October 24, 2025
+Report Generated: October 24, 2025
+
+Course: INT-3117_3 - Software Testing and Quality Assurance
+Repository: github.com/mrthinh307/INT-3117_3---Software-testing-and-quality-assurance
+Owner: mrthinh307
+Branch: master
+
+For more information:
+  • See ALL-USES-README.md for detailed explanation
+  • See README.md for general project information
+  • See C2-COVERAGE-README.md for branch coverage comparison
+
+================================================================================
+                           END OF REPORT
+================================================================================

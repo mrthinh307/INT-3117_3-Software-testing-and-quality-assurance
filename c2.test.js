@@ -1,7 +1,6 @@
 const { calculateTotalPrice } = require('./index');
 
 describe('calculateTotalPrice - C2 Branch Coverage Testing', () => {
-  
   describe('Điểm quyết định (1): unitPrice <= 0 || quantity <= 0 - Kiểm tra input hợp lệ', () => {
     
     test('Nhánh TRUE: unitPrice <= 0 (invalid input)', () => {

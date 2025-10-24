@@ -1,126 +1,140 @@
-# Báo cáo Kiểm thử C2 (Branch Coverage) - calculateTotalPrice
-
-## 📊 Kết quả Coverage
-
-| Metric | Coverage | Chi tiết |
-|--------|----------|----------|
-| **Statements** | ✅ 100% | 12/12 |
-| **Branches** | ✅ 100% | 8/8 |
-| **Functions** | ✅ 100% | 1/1 |
-| **Lines** | ✅ 100% | 12/12 |
-
-## 🎯 Mục tiêu đạt được
-
-- ✅ **100% Branch Coverage (C2)** - Tất cả các nhánh rẽ đều được test
-- ✅ **14 test cases** - Bao phủ đầy đủ 3 điểm quyết định
-- ✅ **Edge cases** - Kiểm tra các giá trị biên
+# Software Testing & Quality Assurance - Project Testing
 
 ## 📁 Cấu trúc Project
 
 ```
 github/
-├── index.js              # Mã nguồn chương trình
-├── index.test.js         # File test với 14 test cases
-├── package.json          # Cấu hình Jest & dependencies
-├── coverage-report.txt   # Báo cáo Text chi tiết
-├── README.md            # File này
-└── coverage/            # Thư mục báo cáo coverage
-    ├── index.html       # ⭐ Báo cáo HTML - Mở trong browser
-    ├── lcov-report/     # Báo cáo LCOV format
-    └── coverage-final.json
+├── index.js                      # ⭐ Mã nguồn chương trình (calculateTotalPrice)
+├── index.test.js                 # Test cases - C2 Branch Coverage
+├── index.all-uses.test.js        # Test cases - All-Uses Coverage
+├── package.json                  # Cấu hình Jest & dependencies
+├── README.md                     # File này - Tổng quan project
+├── C2-COVERAGE-README.md        # Hướng dẫn chi tiết về C2 Coverage
+├── ALL-USES-README.md           # Hướng dẫn chi tiết về All-Uses Coverage
+├── coverage-report.txt           # Báo cáo C2 coverage (text format)
+├── all-uses-coverage-report.txt  # Báo cáo All-Uses coverage (text format)
+└── coverage/                     # Thư mục báo cáo coverage
+    ├── index.html                # Báo cáo HTML - Mở trong browser
+    └── lcov-report/              # Báo cáo LCOV format
 ```
+
+## 🎯 Các loại kiểm thử trong project
+
+### 1. C2 Branch Coverage (Độ phủ nhánh)
+- **File test**: `index.test.js`
+- **Hướng dẫn**: `C2-COVERAGE-README.md`
+- **Số test cases**: 14
+- **Mục tiêu**: Đảm bảo mọi nhánh TRUE/FALSE đều được test
+- **Báo cáo**: `coverage-report.txt`
+
+### 2. All-Uses Coverage (Độ phủ def-use)
+- **File test**: `index.all-uses.test.js`
+- **Hướng dẫn**: `ALL-USES-README.md`
+- **Số test cases**: 24
+- **Mục tiêu**: Đảm bảo mọi cặp định nghĩa-sử dụng biến đều được test
+- **Báo cáo**: `all-uses-coverage-report.txt`
+
+## 🧪 Chương trình được kiểm thử
+
+**Function**: `calculateTotalPrice(unitPrice, quantity)`
+
+**Mô tả**: Tính tổng giá với các mức giảm giá dựa trên số lượng
+
+**Logic**:
+- Input không hợp lệ (≤ 0) → return error
+- quantity ≥ 10 → giảm giá 20%
+- quantity ≥ 5 → giảm giá 10%
+- quantity < 5 → không giảm giá
+
+**Return**: `{ totalPrice: number, message: string }`
 
 ## 🚀 Hướng dẫn sử dụng
 
-### 1. Cài đặt dependencies (đã hoàn thành)
+### 1. Cài đặt dependencies
 ```bash
 npm install
 ```
 
-### 2. Chạy test
+### 2. Chạy tests
+
+#### Chạy tất cả tests:
 ```bash
-# Chạy test thông thường
 npm test
+```
 
-# Chạy test với coverage report
+#### Chạy riêng C2 Branch Coverage:
+```bash
+npm test -- index.test.js
+```
+
+#### Chạy riêng All-Uses Coverage:
+```bash
+npm test -- index.all-uses.test.js
+```
+
+#### Chạy với coverage report:
+```bash
 npm run test:coverage
+```
 
-# Chạy test trong watch mode (tự động chạy lại khi có thay đổi)
+#### Chạy trong watch mode:
+```bash
 npm run test:watch
 ```
 
-### 3. Xem báo cáo
+### 3. Sinh báo cáo text
 
-#### Báo cáo Text
-Mở file: `coverage-report.txt`
+#### Báo cáo C2 Coverage:
+```bash
+npm test -- index.test.js > C2/coverage-report.txt
+```
 
-## 📝 Chi tiết 3 Điểm Quyết Định
+#### Báo cáo All-Uses Coverage:
+```bash
+npm test -- index.all-uses.test.js > All-uses coverage/all-uses-coverage-report.txt
+```
 
-### Điểm 1: Kiểm tra Input hợp lệ
-**Điều kiện:** `unitPrice <= 0 || quantity <= 0`
-
-| Nhánh | Điều kiện | Test Cases |
-|-------|-----------|------------|
-| TRUE | Input không hợp lệ | 3 test cases |
-| FALSE | Input hợp lệ | 1 test case |
-
-### Điểm 2: Kiểm tra giảm giá 20%
-**Điều kiện:** `quantity >= 10`
-
-| Nhánh | Điều kiện | Test Cases |
-|-------|-----------|------------|
-| TRUE | quantity ≥ 10 | 2 test cases |
-| FALSE | quantity < 10 | 1 test case |
-
-### Điểm 3: Kiểm tra giảm giá 10%
-**Điều kiện:** `quantity >= 5`
-
-| Nhánh | Điều kiện | Test Cases |
-|-------|-----------|------------|
-| TRUE | 5 ≤ quantity < 10 | 2 test cases |
-| FALSE | quantity < 5 | 2 test cases |
-
-## 🧪 Danh sách Test Cases
-
-1. ✅ unitPrice ≤ 0 (invalid)
-2. ✅ quantity ≤ 0 (invalid)
-3. ✅ Cả hai ≤ 0 (invalid)
-4. ✅ Input hợp lệ
-5. ✅ quantity = 10 (20% discount)
-6. ✅ quantity > 10 (20% discount)
-7. ✅ quantity < 10 (không 20%)
-8. ✅ quantity = 5 (10% discount)
-9. ✅ quantity = 7 (10% discount)
-10. ✅ quantity < 5 (no discount)
-11. ✅ quantity = 1 (no discount)
-12. ✅ Edge case: biên 10%
-13. ✅ Edge case: biên 20%
-14. ✅ Edge case: số thập phân
+### 4. Xem báo cáo HTML
+```bash
+# Sau khi chạy test với coverage
+# Mở file: coverage/index.html trong browser
+```
 
 ## 🛠️ Công nghệ sử dụng
 
 - **Jest 29.7.0** - Testing framework
-- **Istanbul** - Code coverage (built-in trong Jest)
+- **Istanbul** - Code coverage tool (built-in trong Jest)
 - **Node.js** - Runtime environment
 
-## 📈 Cấu hình Jest
+## � Tài liệu chi tiết
 
-```json
-{
-  "testEnvironment": "node",
-  "coverageDirectory": "coverage",
-  "collectCoverageFrom": ["index.js"],
-  "coverageReporters": ["html", "text", "text-summary", "lcov"],
-  "coverageThreshold": {
-    "global": {
-      "branches": 100,
-      "functions": 100,
-      "lines": 100,
-      "statements": 100
-    }
-  }
-}
+- **[C2-COVERAGE-README.md](C2-COVERAGE-README.md)** - Hướng dẫn chi tiết về Branch Coverage
+- **[ALL-USES-README.md](ALL-USES-README.md)** - Hướng dẫn chi tiết về All-Uses Coverage
+
+## 📈 Kết quả Coverage mong đợi
+
+### C2 Branch Coverage:
+```
+PASS  ./c2.test.js
+  calculateTotalPrice - C2 Branch Coverage Testing
+    ✓ 14 test cases passed
+
+Test Suites: 1 passed
+Tests:       14 passed
+Coverage:    100% branches
 ```
 
-**Ngày tạo:** October 10, 2025  
-**Framework:** Jest + Istanbul Coverage
+### All-Uses Coverage:
+```
+PASS  ./all-uses.test.js
+  calculateTotalPrice - All-Uses Coverage Testing
+    ✓ 24 test cases passed
+
+Test Suites: 1 passed
+Tests:       24 passed
+All def-use pairs: 100% covered
+```
+
+---
+
+**Happy Testing! 🚀**
